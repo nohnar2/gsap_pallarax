@@ -109,17 +109,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   headerAnimationWithScroll();
 
-  const gsapSpuares = document.querySelector('.section_title_square');
-  const rotateSquares = gsap.from(gsapSpuares, 3, {
-    rotation: 720,
+  const gsapSpuares = gsap.utils.toArray('.section_title_square');
+  gsapSpuares.forEach((square) => {
+    const rotate = gsap.from(square, 3, {
+        rotation: 720,
+      });
+      ScrollTrigger.create({
+        trigger: square, // 애니메이션 대상
+        Animation: rotate, // 애니메이션 효과 
+        start: 'top bottm',
+        scrub: 1.9,
+      });
   });
 
-  ScrollTrigger.create({
-    trigger: gsapSpuares,
-    Animation: rotateSquares,
-    start: 'top bottm',
-    scrub: 1.9,
-  });
+
 
   function aboutAnimationWithScroll()
    {
@@ -142,3 +145,17 @@ document.addEventListener('DOMContentLoaded', function () {
    
   aboutAnimationWithScroll();
 }); // end of DOM Content Loaded Method
+
+// benefits section animation effect
+function benefits(){
+  gsap.from('.benefits_num', {
+    x: (i, el) => 1 - parseFloat(el/getAttribute('date-speed')),
+    scrollTrigger: {
+      trigger: '.benefits_list',
+      start: 'top bottom',
+      scrub: 1.9,
+    },
+  });
+}
+
+benefits();
