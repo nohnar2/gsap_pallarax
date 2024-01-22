@@ -107,8 +107,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   }
 
-  headerAnimationWithScroll();
+  benefits();
 
+
+  headerAnimationWithScroll();
   const gsapSpuares = gsap.utils.toArray('.section_title_square');
   gsapSpuares.forEach((square) => {
     const rotate = gsap.from(square, 3, {
@@ -124,32 +126,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  function aboutAnimationWithScroll()
-   {
-    gsap.from('about_img', {
-      scrollTrigger: commonScrollTrigger .about,
+  function aboutAnimationWithScroll(){
+    gsap.from('.about_img', {
+      scrollTrigger: commonScrollTrigger.about,
       yPercent: 80,
     });
 
-    gsap.from('about_img', {
-      scrollTrigger: commonScrollTrigger .about,
+    gsap.from('.about_img', {
+      scrollTrigger: commonScrollTrigger.about,
       scale: 1.6,
    });
 
-   gsap.from('about_txt', {
-    scrollTrigger: commonScrollTrigger .about,
-    yPercent: 50,
- });
+      gsap.from('.about_txt', {
+        scrollTrigger: commonScrollTrigger.about,
+        yPercent: 50,
+    });
    }
 
    
   aboutAnimationWithScroll();
-}); // end of DOM Content Loaded Method
 
-// benefits section animation effect
+  // benefits section animation effect
 function benefits(){
   gsap.from('.benefits_num', {
-    x: (i, el) => 1 - parseFloat(el/getAttribute('date-speed')),
+    x: (i, el) => 1 - parseFloat(el.getAttribute('data-speed')),
     scrollTrigger: {
       trigger: '.benefits_list',
       start: 'top bottom',
@@ -159,3 +159,71 @@ function benefits(){
 }
 
 benefits();
+
+function workAnimationWithScroll() {
+  const workAnimationElmts = gsap.utils.toArray('.work-item, .work-item-num');
+  workAnimationElmts.forEach((elmt) => {
+    const yMove = gsap.from(elmt, 3, {
+      y: 1 - parseFloat(elmt.getAttribute('data-spped')),
+    });
+
+    ScrollTrigger.create({
+      trigger: '.work', //애니메이션 대상 
+      animation: yMove, //애니메이션 효과 
+      start: 'top bottom',
+      scrup: 1.9,
+    });
+  });
+
+  //image scale effect
+  gsap.from('.work-item-img img',{
+    scale: 1.6,
+    scrollTrigger: {
+      trigger: '.work',
+      start: 'top center',
+      scrub:1.9,
+    },
+  });
+  }
+
+workAnimationWithScroll();
+
+function servAnimationWithScroll(){
+  const servAnimationElmts = gsap.utils.toArray('.serv-item-arrow');
+  servAnimationElmts.forEach((elmt) => {
+    const xMove = gsap.from(elmt, 3, {
+      x: 1 - parseFloat(elmt.getAttribute('data-speed')),
+    });
+    ScrollTrigger.create({
+      trigger: '.serv-list', // 애니메이션 대상
+      Animation: xMove, // 애니메이션 효과 
+      start: 'top bottm',
+      scrub: 1.9,
+    });
+  });
+}
+
+servAnimationWithScroll();
+
+function footerAnimationWithScroll() {
+  const footerAnimationElmts = gsap.utils.toArray('.footer-wrapper span');
+  footerAnimationElmts.forEach((elmt) => {
+    const yMove = gsap.from(elmt, 3, {
+        y: 1 - parseFloat(elmt.getAttribute('data-speed')),
+      });
+      ScrollTrigger.create({
+        trigger: '.footer', // 애니메이션 대상
+        Animation: yMove, // 애니메이션 효과 
+        start: 'top bottom',
+        end: 'bottom bottom',
+        scrub: 1.9,
+      });
+  });
+}
+
+footerAnimationWithScroll();
+}); // end of DOM Content Loaded Method
+
+
+
+
